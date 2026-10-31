@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniCore • Cyberpunk Python Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Minimal Cyberpunk Grid & Pink Ambient Light -->
+  <div class="cyber-grid-overlay"></div>
+  <div class="ambient-pink-orb"></div>
+
+  <!-- App Layout -->
+  <div class="app-layout">
+    
+    <!-- Minimalist Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-symbol">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">OMNICORE</span>
+          <span class="brand-subtitle">CYBERPUNK SUITE</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-section-label">MODULES</div>
+        
+        <button class="nav-item active" data-tab="atm" id="nav-atm">
+          <div class="nav-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <line x1="2" y1="10" x2="22" y2="10" />
+              <circle cx="6" cy="15" r="1" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="nav-info">
+            <span class="nav-name">ATM Vault</span>
+            <span class="nav-file">atm.py</span>
+          </div>
+        </button>
+
+        <button class="nav-item" data-tab="contacts" id="nav-contacts">
+          <div class="nav-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <div class="nav-info">
+            <span class="nav-name">Nexus Contacts</span>
+            <span class="nav-file">contactbook.py</span>
+          </div>
+        </button>
+
+        <button class="nav-item" data-tab="calc" id="nav-calc">
+          <div class="nav-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <rect x="4" y="3" width="16" height="18" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+              <line x1="8" y1="16" x2="16" y2="16" />
+            </svg>
+          </div>
+          <div class="nav-info">
+            <span class="nav-name">Quantum Calc</span>
+            <span class="nav-file">sample calculate.py</span>
+          </div>
+        </button>
+
+        <div class="nav-section-label" style="margin-top: 1.25rem;">INSPECTOR</div>
+
+        <button class="nav-item" data-tab="source" id="nav-source">
+          <div class="nav-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
+          </div>
+          <div class="nav-info">
+            <span class="nav-name">Source Code</span>
+            <span class="nav-file">3 Python Files</span>
+          </div>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="status-badge">
+          <span class="pulsing-dot"></span>
+          <span>BACKEND UNTOUCHED</span>
+        </div>
+        <button id="soundToggle" class="sound-btn active" title="Toggle Tactile Haptics">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+          </svg>
+          <span>HAPTICS ON</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-content">
+      
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 id="pageTitle">Apex Bank &amp; Vault</h1>
+          <div class="file-tag" id="activeFileTag">
+            <span class="tag-dot"></span>
+            <span id="activeFileName">atm.py</span>
+          </div>
+        </div>
+        
+        <div class="topbar-actions">
+          <button id="clearTerminalBtn" class="pill-btn" title="Clear Console">
+            Clear Logs
+          </button>
+          <button id="toggleTerminalBtn" class="pill-btn primary" title="Toggle Terminal Output">
+            Console Mirror
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Scroll -->
+      <div class="scroll-canvas">
+
+        <!-- ============================================== -->
+        <!-- TAB 1: ATM SYSTEM (atm.py) -->
+        <!-- ============================================== -->
+        <section class="tab-panel active" id="tab-atm">
+          <div class="hero-grid">
+            
+            <div class="virtual-card-wrapper">
+              <!-- Minimal Cyberpunk Card -->
+              <div class="credit-card" id="creditCard">
+                <div class="card-top-row">
+                  <div class="card-chip-minimal"></div>
+                  <div class="card-contactless">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+                      <path d="M8.5 10a5 5 0 0 1 0 4M12 7a9 9 0 0 1 0 10M15.5 4a13 13 0 0 1 0 16" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-number">•••• •••• •••• 8842</div>
+                <div class="card-details">
+                  <div>
+                    <span class="card-label">ACCOUNT</span>
+                    <span class="card-val">VAULT // CYBER-01</span>
+                  </div>
+                  <div>
+                    <span class="card-label">SECURITY</span>
+                    <span class="tier-badge">ACTIVE</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Balance Display -->
+              <div class="balance-display-card">
+                <span class="metric-label">CURRENT VAULT BALANCE</span>
+                <div class="balance-amount-row">
+                  <span class="currency-symbol">$</span>
+                  <span class="balance-number" id="atmBalanceValue">10,000</span>
+                  <span class="currency-code">USD</span>
+                </div>
+                <div class="balance-meta">
+                  <span class="sync-check">● Synced with atm.py</span>
+                  <span id="lastTxTime">Initial: $10,000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ATM Terminal -->
+            <div class="glass-panel">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <div class="panel-icon-badge">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke-width="2">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <line x1="12" y1="8" x2="12" y2="16" />
+                      <line x1="8" y1="12" x2="16" y2="12" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="panel-title">Operations Console</h2>
+                    <p class="panel-sub">Maps to <code>deposit()</code>, <code>withdraw()</code> &amp; <code>check_balance()</code></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-tabs">
+                <button class="action-tab-btn active" data-atm-mode="deposit" id="btnModeDeposit">Deposit</button>
+                <button class="action-tab-btn" data-atm-mode="withdraw" id="btnModeWithdraw">Withdraw</button>
+                <button class="action-tab-btn" data-atm-mode="check" id="btnModeCheck">Check Balance</button>
+              </div>
+
+              <div class="input-field-group" id="atmAmountInputGroup">
+                <label for="atmAmountInput" class="input-label">TRANSACTION AMOUNT ($)</label>
+                <div class="custom-input-box">
+                  <span class="input-prefix">$</span>
+                  <input type="number" id="atmAmountInput" placeholder="0.00" min="1" step="any" />
+                  <button class="input-clear-btn" id="atmClearInput" title="Clear">✕</button>
+                </div>
+              </div>
+
+              <div class="quick-presets" id="atmPresets">
+                <span class="presets-label">QUICK:</span>
+                <button class="preset-chip" data-amount="100">+$100</button>
+                <button class="preset-chip" data-amount="500">+$500</button>
+                <button class="preset-chip" data-amount="1000">+$1,000</button>
+                <button class="preset-chip" data-amount="5000">+$5,000</button>
+              </div>
+
+              <button id="atmSubmitBtn" class="btn-primary-action">
+                <span id="atmBtnText">Execute Deposit</span>
+              </button>
+
+              <div class="history-section">
+                <div class="history-header">
+                  <span>AUDIT LOG</span>
+                  <span class="badge-count" id="atmTxCount">1 transaction</span>
+                </div>
+                <div class="history-list" id="atmHistoryList"></div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- TAB 2: CONTACT BOOK (contactbook.py) -->
+        <!-- ============================================== -->
+        <section class="tab-panel" id="tab-contacts">
+          <div class="contact-grid">
+            
+            <div class="glass-panel">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <div class="panel-icon-badge">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke-width="2">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                      <circle cx="8.5" cy="7" r="4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="panel-title" id="contactFormTitle">Add Contact</h2>
+                    <p class="panel-sub">Maps to Python <code>d[name] = phone</code></p>
+                  </div>
+                </div>
+              </div>
+
+              <form id="contactForm" autocomplete="off" onsubmit="return false;">
+                <div class="input-field-group">
+                  <label for="contactNameInput" class="input-label">CONTACT NAME</label>
+                  <div class="custom-input-box">
+                    <input type="text" id="contactNameInput" placeholder="Name" required />
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label for="contactPhoneInput" class="input-label">10-DIGIT PHONE</label>
+                  <div class="custom-input-box">
+                    <input type="tel" id="contactPhoneInput" placeholder="10 Digits" maxlength="10" required />
+                  </div>
+                  <span class="helper-hint">Strict 10 digits validation per contactbook.py</span>
+                </div>
+
+                <div class="form-btn-row">
+                  <button type="submit" id="contactSaveBtn" class="btn-primary-action">
+                    <span id="contactBtnText">Save Contact</span>
+                  </button>
+                  <button type="button" id="contactCancelEditBtn" class="pill-btn" style="display: none;">Cancel</button>
+                </div>
+              </form>
+
+              <!-- Search Tool -->
+              <div class="search-box-card">
+                <span class="input-label">SEARCH (search_contact)</span>
+                <div class="custom-input-box">
+                  <input type="text" id="contactSearchInput" placeholder="Search name..." />
+                  <button id="contactSearchBtn" class="mini-search-btn">Find</button>
+                </div>
+                <div id="searchResultDisplay" class="search-result-pill" style="display: none;"></div>
+              </div>
+            </div>
+
+            <!-- Contacts Cards Grid -->
+            <div class="glass-panel">
+              <div class="panel-header space-between">
+                <div>
+                  <h2 class="panel-title">Directory</h2>
+                  <p class="panel-sub" id="contactCountBadge">0 registered</p>
+                </div>
+                <div class="topbar-actions">
+                  <button id="viewAllBtn" class="pill-btn" title="Refresh list">Refresh</button>
+                  <button id="seedSampleContacts" class="pill-btn primary" title="Sample Data">+ Sample</button>
+                </div>
+              </div>
+
+              <div class="contacts-cards-container" id="contactsContainer"></div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- TAB 3: CALCULATOR (sample calculate.py) -->
+        <!-- ============================================== -->
+        <section class="tab-panel" id="tab-calc">
+          <div class="calc-grid">
+            
+            <div class="glass-panel">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <div class="panel-icon-badge">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke-width="2">
+                      <path d="M4 7h16M4 17h16M7 4v6M17 14v6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="panel-title">Binary Operator Sandbox</h2>
+                    <p class="panel-sub">Direct emulation of <code>sample calculate.py</code></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="calc-dual-inputs">
+                <div class="input-field-group">
+                  <label for="calcInputA" class="input-label">NUMBER (a)</label>
+                  <div class="custom-input-box">
+                    <input type="number" id="calcInputA" value="24" step="any" />
+                  </div>
+                </div>
+                <div class="input-field-group">
+                  <label for="calcInputB" class="input-label">NUMBER (b)</label>
+                  <div class="custom-input-box">
+                    <input type="number" id="calcInputB" value="6" step="any" />
+                  </div>
+                </div>
+              </div>
+
+              <span class="input-label" style="margin-top: 0.25rem;">ARITHMETIC OPERATOR</span>
+              <div class="op-button-matrix">
+                <button class="op-btn active" data-op="add">
+                  <span class="op-symbol">+</span>
+                  <span class="op-name">add</span>
+                </button>
+                <button class="op-btn" data-op="sub">
+                  <span class="op-symbol">−</span>
+                  <span class="op-name">sub</span>
+                </button>
+                <button class="op-btn" data-op="multi">
+                  <span class="op-symbol">×</span>
+                  <span class="op-name">multi</span>
+                </button>
+                <button class="op-btn" data-op="div">
+                  <span class="op-symbol">÷</span>
+                  <span class="op-name">div</span>
+                </button>
+                <button class="op-btn" data-op="mod">
+                  <span class="op-symbol">%</span>
+                  <span class="op-name">mod</span>
+                </button>
+              </div>
+
+              <div class="calc-run-actions">
+                <button id="calcExecuteBtn" class="btn-primary-action">
+                  <span>Calculate Result</span>
+                </button>
+                <button id="calcRunAllBtn" class="pill-btn" title="Run all functions like original script">
+                  Run All (add/sub/multi/div/mod)
+                </button>
+              </div>
+
+              <div class="expression-output-card" id="calcExpressionCard">
+                <div class="expr-top">
+                  <span class="expr-formula" id="calcFormula">add(24, 6)</span>
+                  <span class="expr-status" id="calcOpStatus">EVALUATED</span>
+                </div>
+                <div class="expr-result" id="calcResultDisplay">30</div>
+                <div class="expr-footnote" id="calcFootnote">Terminal print: add 30</div>
+              </div>
+            </div>
+
+            <!-- Minimal Keypad -->
+            <div class="glass-panel cyber-calc-panel">
+              <div class="keypad-header">
+                <span class="keypad-brand">CYBER-KEYPAD</span>
+              </div>
+
+              <div class="keypad-screen">
+                <div class="keypad-history" id="keypadHistory">Ready</div>
+                <div class="keypad-current" id="keypadCurrent">0</div>
+              </div>
+
+              <div class="keypad-buttons">
+                <button class="k-btn fn" data-k="clear">AC</button>
+                <button class="k-btn fn" data-k="del">DEL</button>
+                <button class="k-btn fn" data-k="mod">%</button>
+                <button class="k-btn op" data-k="div">÷</button>
+
+                <button class="k-btn" data-k="7">7</button>
+                <button class="k-btn" data-k="8">8</button>
+                <button class="k-btn" data-k="9">9</button>
+                <button class="k-btn op" data-k="multi">×</button>
+
+                <button class="k-btn" data-k="4">4</button>
+                <button class="k-btn" data-k="5">5</button>
+                <button class="k-btn" data-k="6">6</button>
+                <button class="k-btn op" data-k="sub">−</button>
+
+                <button class="k-btn" data-k="1">1</button>
+                <button class="k-btn" data-k="2">2</button>
+                <button class="k-btn" data-k="3">3</button>
+                <button class="k-btn op" data-k="add">+</button>
+
+                <button class="k-btn zero" data-k="0">0</button>
+                <button class="k-btn" data-k=".">.</button>
+                <button class="k-btn equal" data-k="equal">=</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- TAB 4: PYTHON SOURCE CODE INSPECTOR -->
+        <!-- ============================================== -->
+        <section class="tab-panel" id="tab-source">
+          <div class="glass-panel source-panel">
+            <div class="source-header">
+              <div class="source-tabs">
+                <button class="source-tab-btn active" data-source-target="atm">
+                  <span class="file-icon-py">PY</span>
+                  atm.py
+                </button>
+                <button class="source-tab-btn" data-source-target="contacts">
+                  <span class="file-icon-py">PY</span>
+                  contactbook.py
+                </button>
+                <button class="source-tab-btn" data-source-target="calc">
+                  <span class="file-icon-py">PY</span>
+                  sample calculate.py
+                </button>
+              </div>
+
+              <div class="topbar-actions">
+                <span class="untouched-pill">100% Original Backend (Untouched)</span>
+                <button id="copySourceBtn" class="pill-btn primary" title="Copy code">
+                  Copy Script
+                </button>
+              </div>
+            </div>
+
+            <div class="code-editor-mock">
+              <div class="line-numbers" id="sourceLineNumbers"></div>
+              <pre class="code-content"><code id="sourceCodeBlock"></code></pre>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ============================================== -->
+      <!-- SLIDING CONSOLE MIRROR -->
+      <!-- ============================================== -->
+      <div class="terminal-drawer collapsed" id="terminalDrawer">
+        <div class="terminal-header" id="terminalHandle">
+          <div class="terminal-title">
+            <span>&gt;_ PYTHON CONSOLE MIRROR [CLI stdout]</span>
+          </div>
+          <button id="terminalToggleBtnMin" class="mini-icon-btn" title="Toggle">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </button>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <div class="term-line info">Python Virtual Session Active. Connected to backend logic.</div>
+          <div class="term-line prompt">&gt; System initialized. Ready.</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
